@@ -18,6 +18,7 @@
 
     2.1 Prompt: "How to calculate slope of a line"
     2.2 Focus: Grasping the concept of line slope in geometry.
+  2.3 Resource :  <a href="https://www.youtube.com/watch?v=R948Tsyq4vA"> Finding the slope of a line from its graph | Algebra I | Khan Academy </a> 
   </p>
 <p><img width="828" alt="script" src="https://github.com/yassineoubihi/Fdf/assets/139509742/44291f18-abec-4ec0-8a8e-d94490923297)"></p>
   <p>
@@ -37,6 +38,7 @@
 
     5.1 Prompt: "Bresenham's Line Drawing Algorithm"
     5.2 Focus: Understanding Bresenham's Line Drawing Algorithm.
+  5.3 Resource :  <a href="https://youtu.be/RGB-wlatStc"> Bresenham's Line Drawing Algorithm </a> 
   </p>
 </p>
 <h5>Bresenham's Line Drawing Algorithm Demonstration :</h5>
