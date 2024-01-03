@@ -1,0 +1,30 @@
+SRCF = fdf.c get_next_line.c get_next_line_utils.c
+RM = rm -f
+OBJF = $(SRCF:.c=.o)
+CC = cc
+CFLAGS = -Wall -Wextra -Werror -g
+FDF = fdf
+LIBFT = libft/libft.a
+
+all: $(FDF)
+
+$(LIBFT):
+	make -C ./libft
+
+$(FDF): $(LIBFT) $(OBJF)
+	$(CC) $(CFLAGS) $(OBJF) -o $(FDF) -L./libft -lft -lmlx -framework OpenGL -framework AppKit
+
+clean:
+	$(RM) $(OBJF)
+	make -C ./libft clean
+
+%.o: %.c fdf.h
+	$(CC) $(CFLAGS) -c $< -o $@
+
+fclean: clean
+	$(RM) $(FDF)
+	make -C ./libft fclean
+
+re: fclean all
+
+
