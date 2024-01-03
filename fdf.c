@@ -6,7 +6,7 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 14:05:21 by youbihi           #+#    #+#             */
-/*   Updated: 2024/01/03 02:40:39 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/01/03 04:22:29 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,30 +54,42 @@ int main()
     fd = open("map.txt",O_RDONLY);
     mlx_ptr = mlx_init();
     win_ptr = mlx_new_window(mlx_ptr, 1000, 1000, "fdf");
-    *lines = get_next_line(fd);
-    while (1)
+    while (lines != NULL)
     {
+        *lines = get_next_line(fd);
         int j = 0;
         char **result;
         
         result = ft_split(lines[i], ' ');
         while (result && result[j])
         {
-            if (result[c] && result[c][0] == 48)
+            if (result[c] && result[c][0] == '0')
             {
                 drawLine(mlx_ptr,win_ptr, x0, y0, x1, y1);
                 c++;
                 x1 += 100;
+                printf("character 0 :((x0 = %d, y0 = %d) / (x1 = %d, y1 = %d))\n",x0,y0,x1,y1);
             }
-            else if(result[c] && result[c][0] == 49)
+            else if(result[c] && result[c][0] == '1')
             {
-                drawLine(mlx_ptr,win_ptr, x0, y0, x1, y1 - 100);
+                y0 += 100;
+                drawLine(mlx_ptr,win_ptr, x0, y0, x1, y1);
+                printf("character 1 :((x0 = %d, y0 = %d) / (x1 = %d, y1 = %d))\n",x0,y0,x1,y1);
+                drawLine(mlx_ptr,win_ptr, x0, y0, x1, 0);
+                printf("character 1 :((x0 = %d, y0 = %d) / (x1 = %d, y1 = %d))\n",x0,y0,x1,y1);
+                drawLine(mlx_ptr,win_ptr, x0, y0, x1, 200);
+                printf("character 1 :((x0 = %d, y0 = %d) / (x1 = %d, y1 = %d))\n",x0,y0,x1,y1);
                 c++;
                 x1 += 100;
+                
             }
             j++;
         }
-        y1 += 100;
+        printf("------------------------------------\n");
+        j = 0;
+        c = 0;
+        x1 = 0;
+        y0 = 100;
         i++;
         *(lines + i) = get_next_line(fd);
         if (*(lines + i) == NULL)
