@@ -19,7 +19,7 @@ clean:
 	make -C ./libft clean
 
 %.o: %.c fdf.h
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) -g $(CFLAGS) -c $< -o $@
 
 fclean: clean
 	$(RM) $(FDF)
