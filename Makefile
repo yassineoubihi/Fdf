@@ -1,4 +1,4 @@
-SRCF = fdf.c get_next_line.c get_next_line_utils.c
+SRCF = fdf.c get_next_line.c get_next_line_utils.c fdf_utiles.c bresenhams.c
 RM = rm -f
 OBJF = $(SRCF:.c=.o)
 CC = cc
@@ -26,5 +26,3 @@ fclean: clean
 	make -C ./libft fclean
 
 re: fclean all
-
-
