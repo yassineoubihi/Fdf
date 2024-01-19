@@ -6,7 +6,7 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/31 20:30:09 by youbihi           #+#    #+#             */
-/*   Updated: 2024/01/18 18:33:44 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/01/19 10:54:27 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include "libft/libft.h"
 # include "mlx.h"
 # include <stdio.h>
+# include <math.h>
 
 struct Args
 {
@@ -41,6 +42,16 @@ struct points
     int color;
 };
 
+struct algo
+{
+    int dx;
+    int pk;
+    int dy;
+    int x;
+    int y;
+    int y1;
+    int y0;
+};
 
 int		ft_line_len(char *str);
 char	*ft_line_insert(char *return_line, char *all_line);
@@ -59,5 +70,6 @@ int     isHexDigit(char c);
 void    fill_data(struct points **data, int c, int r);
 int     func(char c);
 void    allocate_data(struct points ***data, int column, int row);
+void    iso(int *x, int *y, int z);
 
 #endif

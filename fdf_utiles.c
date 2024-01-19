@@ -6,7 +6,7 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 22:13:59 by youbihi           #+#    #+#             */
-/*   Updated: 2024/01/18 18:40:13 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/01/19 10:31:38 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,18 +61,14 @@ void    color_habdel(struct points *data , char *s, int x, int y)
     data->x = x * 50;
     data->y = y * 50;
     data->z = ft_atoi(r[0]) * 50;
-    // printf("%d\n",ft_atoi(r[0]));
     data->color = ft_atoi_hex(r[1]);
-    // printf("x = %d // y = %d // z = %d // color = %d\n",data->x,data->y,data->z,data->color);
 }
 void    no_color_habdel(struct points *data , char *s, int x, int y)
 {
     data->x = x * 50;
     data->y = y * 50;
     data->z = ft_atoi(s) * 50;
-    // printf("%d\n",ft_atoi(s));
     data->color = 16777215;
-    // printf("x = %d // y = %d // z = %d // color = %d\n",data->x,data->y,data->z,data->color);
 }
 
 char    **handel_line()
@@ -83,7 +79,6 @@ char    **handel_line()
     
     fd = open("test_maps/42.fdf",O_RDONLY);
     s = get_next_line(fd);
-    // printf("%s\n",s);
     r = ft_split(s, ' ');
     return (r);
 }
@@ -94,7 +89,6 @@ void    fill_data(struct points **data, int x, int y)
     int     x_index;
     int     y_index;
 
-    printf("x = %d || y = %d\n",x,y);
     x_index = 0;
     y_index = 0;
     while (y_index < y)
@@ -105,21 +99,10 @@ void    fill_data(struct points **data, int x, int y)
             if (ft_custom_strchr(*s) == 1)
             {
                 color_habdel(&data[y_index][x_index], *s,x_index,y_index);
-                // if (data[y_index][x_index].x == 55)
-                // {
-                //     puts("color handel");
-                //     printf("error here y = %d || x = %d !!!",y_index,x_index);
-                //     exit(1);
-                // }
             }
             else
             {
                 no_color_habdel(&data[y_index][x_index], *s,x_index,y_index);
-                // if (data[y_index][x_index].x == 55)
-                // {
-                //     printf("error here y = %d || x = %d !!!",y_index,x_index);
-                //     exit(1);
-                // }
             }
             x_index++;
             s++;

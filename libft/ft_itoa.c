@@ -6,7 +6,7 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 21:18:35 by youbihi           #+#    #+#             */
-/*   Updated: 2023/11/07 16:32:49 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/01/19 10:31:53 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,3 @@ char	*ft_itoa(int n)
 	str = ft_char(str, nb, len);
 	return (str);
 }
-/*
-int main(void)
-{
-	printf("%s\n",ft_itoa(2147483648));
-	//printf("%s",itoa(2147483647));
-	return (0);
-}
-*/
