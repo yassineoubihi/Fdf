@@ -6,12 +6,21 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 22:13:59 by youbihi           #+#    #+#             */
-/*   Updated: 2024/01/19 10:31:38 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/01/24 14:14:54 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
+int calculate_space(int x)
+{
+    int len;
+    int r;
+
+    len = 750-250;
+    r = len / x;
+    return (r);
+}
 
 void allocate_data(struct points ***data, int x, int y)
 {
@@ -58,32 +67,32 @@ void    color_habdel(struct points *data , char *s, int x, int y)
     char    **r;
 
     r = ft_split(s, ',');
-    data->x = x * 50;
-    data->y = y * 50;
-    data->z = ft_atoi(r[0]) * 50;
+    data->x = x * 20;
+    data->y = y * 20;
+    data->z = ft_atoi(r[0]) * 20;
     data->color = ft_atoi_hex(r[1]);
 }
 void    no_color_habdel(struct points *data , char *s, int x, int y)
 {
-    data->x = x * 50;
-    data->y = y * 50;
-    data->z = ft_atoi(s) * 50;
+    data->x = x * 20;
+    data->y = y * 20;
+    data->z = ft_atoi(s) * 20;
     data->color = 16777215;
 }
 
-char    **handel_line()
+char    **handel_line(char *argv)
 {
     int fd;
     char **r;
     char *s;
     
-    fd = open("test_maps/42.fdf",O_RDONLY);
+    fd = open(argv,O_RDONLY);
     s = get_next_line(fd);
     r = ft_split(s, ' ');
     return (r);
 }
 
-void    fill_data(struct points **data, int x, int y)
+void    fill_data(struct points **data, int x, int y, char *argv)
 {
     char    **s;
     int     x_index;
@@ -93,17 +102,14 @@ void    fill_data(struct points **data, int x, int y)
     y_index = 0;
     while (y_index < y)
     {
-        s = handel_line();
+        s = handel_line(argv);
         while (x_index < x)
         {
             if (ft_custom_strchr(*s) == 1)
-            {
                 color_habdel(&data[y_index][x_index], *s,x_index,y_index);
-            }
             else
-            {
                 no_color_habdel(&data[y_index][x_index], *s,x_index,y_index);
-            }
+            data[y_index][x_index].space_between = calculate_space(x);
             x_index++;
             s++;
         }
@@ -140,13 +146,13 @@ int count_x_rows(char *s)
     return (x);
 }
 
-void count_rows_coluns(int *x, int *y)
+void count_rows_coluns(int *x, int *y,char *argv)
 {
     char *s;
     int fd;
     int i;
 
-    fd = open("test_maps/42.fdf",O_RDONLY);
+    fd = open(argv,O_RDONLY);
     i = 0;
     s = get_next_line(fd);
     while (s != NULL)
@@ -156,7 +162,6 @@ void count_rows_coluns(int *x, int *y)
         (*y)++;
         free(s);
         s = get_next_line(fd);
-        
     }
     free(s);
     close(fd);

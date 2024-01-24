@@ -6,77 +6,165 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 22:12:00 by youbihi           #+#    #+#             */
-/*   Updated: 2024/01/19 10:51:29 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/01/24 12:50:11 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
+void	rotate_x(int *y, int *z)
+{
+	int previous_y;
+
+	previous_y = *y;
+	*y = previous_y * cos(0.1) + *z * sin(0.1);
+	*z = -previous_y * sin(0.1) + *z * cos(0.1);
+}
+
+/*
+** Rotate coordinate by y axis
+*/
+
+void	rotate_y(int *x, int *z)
+{
+	int previous_x;
+
+	previous_x = *x;
+	*x = previous_x * cos(0.1) + *z * sin(0.1);
+	*z = -previous_x * sin(0.1) + *z * cos(0.1);
+}
+
+/*
+** Rotate coordinate by z axis
+*/
+
+void	rotate_z(int *x, int *y)
+{
+	int previous_x;
+	int previous_y;
+
+	previous_x = *x;
+	previous_y = *y;
+	*x = previous_x * cos(0.1) - previous_y * sin(0.1);
+	*y = previous_x * sin(0.1) + previous_y * cos(0.1);
+}
+
+void change_data(struct points **data,char *argv)
+{
+    int x;
+    int y;
+    int x_index;
+    int y_index;
+
+    x = 0;
+    y = 0;
+    x_index = 0;
+    y_index = 0;
+    count_rows_coluns(&x,&y,argv);
+    while (y_index < y)
+    {
+        while (x_index < x)
+        {
+            rotate_x(&data[y_index][x_index].y,&data[y_index][x_index].z);
+            rotate_y(&data[y_index][x_index].x,&data[y_index][x_index].z);
+            rotate_z(&data[y_index][x_index].x,&data[y_index][x_index].y);
+            x_index++;
+        }
+        x_index = 0;
+        y_index++;
+    }
+}
+
 void iso(int *x, int *y, int z)
 {
-    int previous_x;
-    int previous_y;
+    int previous_x = *x;
+    int previous_y = *y;
 
-    previous_x = *x;
-    previous_y = *y;
     *x = (previous_x - previous_y) * cos(0.523599);
     *y = -z + (previous_x + previous_y) * sin(0.523599);
 }
-
-void    dx_is_zero(void *mlx_ptr, void *win_ptr,struct algo args)
+void iso_maker(struct points **data,int x, int y)
 {
-    int i;
-    int step;
+    int x_index;
+    int y_index;
 
-    i = 0;
-    if (args.y1 > args.y0)
-        step = 1;
-    else
-        step = -1;
-    while (i < abs(args.dy))
+    x_index = 0;
+    y_index = 0;
+    while (y_index < y)
     {
-        args.y += step;
-        mlx_pixel_put(mlx_ptr,win_ptr,args.x,args.y,0xffffff);
-        i++;
+        while (x_index < x)
+        {
+            iso(&data[y_index][x_index].x,&data[y_index][x_index].y,data[y_index][x_index].z);
+            x_index++;
+        }
+        x_index = 0;
+        y_index++;
     }
 }
-void    dx_not_zero(void *mlx_ptr,void *win_ptr,struct algo args)
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
-    int i;
+	char	*dst;
 
-    i = 0;
-    while (i < args.dx)
+    if ( 0 < x && x < 1920 &&0 < y && y < 1080)
     {
-        if (args.pk < 0)
-        {
-            mlx_pixel_put(mlx_ptr,win_ptr,args.x,args.y,0xffffff);
-            args.pk += 2 * args.dy;
-        }
-        else
-        {
-            args.y++;
-            mlx_pixel_put(mlx_ptr,win_ptr,args.x,args.y,0xffffff);
-            args.pk += 2 * (args.dy - args.dx);
-        }
-        i++;
-        args.x++;
+	    dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	    *(unsigned int*)dst = color;
     }
 }
 
-void drawline(void *mlx_ptr, void *win_ptr, int x0, int y0, int x1, int y1)
+void drawline( int x0, int y0, int x1, int y1, int color, t_mlx *env)
 {
-    struct algo args;
+    int dx = abs(x1 - x0);
+   int sx = x0 < x1 ? 1 : -1;
+   int dy = -abs(y1 - y0);
+   int sy = y0 < y1 ? 1 : -1;
+   int error = dx + dy;
 
-    args.y1 = y1;
-    args.y0 = y0;
-    args.dx = abs(x1 - x0);
-    args.dy = abs(y1 - y0);
-    args.pk = 2 * args.dy - args.dx;
-    args.x = x0;
-    args.y = y0;
-    mlx_pixel_put(mlx_ptr,win_ptr,args.x,args.y,0xffffff);
-    if (args.dx == 0)
-        dx_is_zero(mlx_ptr,win_ptr,args);
-    else
-        dx_not_zero(mlx_ptr,win_ptr,args);
+   while (1) {
+       my_mlx_pixel_put(&env->img, x0, y0, color); // Draw white pixel
+
+       if (x0 == x1 && y0 == y1) {
+           break;
+       }
+
+       int e2 = 2 * error;
+
+       if (e2 >= dy) {
+           if (x0 == x1) {
+               break;
+           }
+           error = error + dy;
+           x0 = x0 + sx;
+       }
+
+       if (e2 <= dx) {
+           if (y0 == y1) {
+               break;
+           }
+           error = error + dx;
+           y0 = y0 + sy;
+       }
+   }
+    
+    // struct dda argument;
+
+    // argument.index = 0;
+    // argument.dx = x2 - x1;
+    // argument.dy = y2 - y1;
+    // if (abs(argument.dx) > abs(argument.dy))
+    //     argument.steps = abs(argument.dx);
+    // else
+    //     argument.steps = abs(argument.dy);
+    // argument.xIncrement = (float)argument.dx / argument.steps;
+    // argument.yIncrement = (float)argument.dy / argument.steps;
+    // argument.x = x1;
+    // argument.y = y1;
+
+    // while (argument.index <= argument.steps)
+    // {
+    //     mlx_pixel_put(mlx_ptr, win_ptr, (int)argument.x, (int)argument.y, color);
+    //     argument.x += argument.xIncrement;
+    //     argument.y += argument.yIncrement;
+    //     ++argument.index;
+    // }
 }
