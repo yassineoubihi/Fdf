@@ -6,7 +6,7 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 22:13:59 by youbihi           #+#    #+#             */
-/*   Updated: 2024/01/24 14:14:54 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/01/24 15:42:16 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,16 +67,16 @@ void    color_habdel(struct points *data , char *s, int x, int y)
     char    **r;
 
     r = ft_split(s, ',');
-    data->x = x * 20;
-    data->y = y * 20;
-    data->z = ft_atoi(r[0]) * 20;
+    data->x = x * 25;
+    data->y = y * 25;
+    data->z = ft_atoi(r[0]) * 25;
     data->color = ft_atoi_hex(r[1]);
 }
 void    no_color_habdel(struct points *data , char *s, int x, int y)
 {
-    data->x = x * 20;
-    data->y = y * 20;
-    data->z = ft_atoi(s) * 20;
+    data->x = x * 25;
+    data->y = y * 25;
+    data->z = ft_atoi(s) * 25;
     data->color = 16777215;
 }
 

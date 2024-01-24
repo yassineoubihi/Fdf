@@ -5,6 +5,11 @@
 		"libft.h": "c",
 		"chrono": "c",
 		"complex": "c",
-		"fdf.h": "c"
+		"fdf.h": "c",
+		"array": "c",
+		"iterator": "c",
+		"string": "c",
+		"string_view": "c",
+		"vector": "c"
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 22:12:00 by youbihi           #+#    #+#             */
-/*   Updated: 2024/01/24 12:50:11 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/01/24 15:06:31 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ void drawline( int x0, int y0, int x1, int y1, int color, t_mlx *env)
    int error = dx + dy;
 
    while (1) {
-       my_mlx_pixel_put(&env->img, x0, y0, color); // Draw white pixel
+       my_mlx_pixel_put(&env->img, x0, y0, color);
 
        if (x0 == x1 && y0 == y1) {
            break;
@@ -145,26 +145,5 @@ void drawline( int x0, int y0, int x1, int y1, int color, t_mlx *env)
            y0 = y0 + sy;
        }
    }
-    
-    // struct dda argument;
 
-    // argument.index = 0;
-    // argument.dx = x2 - x1;
-    // argument.dy = y2 - y1;
-    // if (abs(argument.dx) > abs(argument.dy))
-    //     argument.steps = abs(argument.dx);
-    // else
-    //     argument.steps = abs(argument.dy);
-    // argument.xIncrement = (float)argument.dx / argument.steps;
-    // argument.yIncrement = (float)argument.dy / argument.steps;
-    // argument.x = x1;
-    // argument.y = y1;
-
-    // while (argument.index <= argument.steps)
-    // {
-    //     mlx_pixel_put(mlx_ptr, win_ptr, (int)argument.x, (int)argument.y, color);
-    //     argument.x += argument.xIncrement;
-    //     argument.y += argument.yIncrement;
-    //     ++argument.index;
-    // }
 }
