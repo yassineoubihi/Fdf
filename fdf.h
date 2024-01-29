@@ -6,7 +6,7 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/31 20:30:09 by youbihi           #+#    #+#             */
-/*   Updated: 2024/01/24 14:29:49 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/01/29 23:13:04 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,11 @@ struct points
     int z;
     int color;
     int space_between;
+    int screen_x;
+    int screen_y;
+    int the_min;
+    int max_x;
+    int max_y;
 };
 
 struct algo
@@ -114,7 +119,7 @@ int     ft_atoi_hex(const char *s);
 int     isHexDigit(char c);
 void    fill_data(struct points **data, int c, int r,char *argv);
 int     func(char c);
-void    allocate_data(struct points ***data, int column, int row);
+void    allocate_data(struct points ***data, char *argv);
 void    iso(int *x, int *y, int z);
 void    change_data(struct points **data,char *argv);
 void    iso_maker(struct points **data,int x, int y);

@@ -6,11 +6,19 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 22:13:59 by youbihi           #+#    #+#             */
-/*   Updated: 2024/01/24 15:42:16 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/01/30 00:28:38 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+int min_calcul(int x, int y)
+{
+    if (x < y)
+        return (x);
+    else
+        return (y);
+}
 
 int calculate_space(int x)
 {
@@ -22,11 +30,14 @@ int calculate_space(int x)
     return (r);
 }
 
-void allocate_data(struct points ***data, int x, int y)
+void allocate_data(struct points ***data, char *argv)
 {
     int i;
+    int x;
+    int y;
 
     i = 0;
+    count_rows_coluns(&x,&y,argv);
     *data = malloc(y * sizeof(struct points *));
     if (*data == NULL)
         exit(1);
@@ -37,6 +48,8 @@ void allocate_data(struct points ***data, int x, int y)
             exit(1);
         i++;
     }
+    data[0][0]->max_x = x;
+    data[0][0]->max_y = y;
 }
 
 int isHexDigit(char c)
@@ -67,23 +80,29 @@ void    color_habdel(struct points *data , char *s, int x, int y)
     char    **r;
 
     r = ft_split(s, ',');
-    data->x = x * 25;
-    data->y = y * 25;
-    data->z = ft_atoi(r[0]) * 25;
-    data->color = ft_atoi_hex(r[1]);
+    data->screen_x = 1080;
+    data->screen_y = 1080 ;
+    data->the_min = min_calcul((data->screen_x / data->max_x/ 2),(data->screen_y / data->max_y / 2));
+    data->x = x  * data->the_min;
+    data->y = y  * data->the_min;
+    data->z = ft_atoi(r[0]);
+    data->color = 16777215;
 }
 void    no_color_habdel(struct points *data , char *s, int x, int y)
 {
-    data->x = x * 25;
-    data->y = y * 25;
-    data->z = ft_atoi(s) * 25;
+    data->screen_x = 1080;
+    data->screen_y = 1080;
+    data->the_min = min_calcul((data->screen_x / data->max_x/ 2),(data->screen_y / data->max_y / 2));
+    data->x = x  * data->the_min;
+    data->y = y  * data->the_min;
+    data->z = ft_atoi(s);
     data->color = 16777215;
 }
 
 char    **handel_line(char *argv)
 {
     int fd;
-    char **r;
+    char **r = NULL;
     char *s;
     
     fd = open(argv,O_RDONLY);
@@ -100,19 +119,24 @@ void    fill_data(struct points **data, int x, int y, char *argv)
 
     x_index = 0;
     y_index = 0;
-    while (y_index < y)
+    while (y_index < data[0][0].max_y)
     {
         s = handel_line(argv);
-        while (x_index < x)
+        while (x_index < data[0][0].max_x)
         {
-            if (ft_custom_strchr(*s) == 1)
+            data[y_index][x_index].max_x = x;
+            data[y_index][x_index].max_y = y;
+            if (s != NULL && *s != NULL && ft_custom_strchr(*s) == 1)
                 color_habdel(&data[y_index][x_index], *s,x_index,y_index);
             else
                 no_color_habdel(&data[y_index][x_index], *s,x_index,y_index);
+            printf("%s\n",s[0]);
             data[y_index][x_index].space_between = calculate_space(x);
+            // printf("x = %d ||y = %d ||z = %d\n",data[y_index][x_index].x,data[y_index][x_index].y,data[y_index][x_index].z);
             x_index++;
             s++;
         }
+        // printf("\n=========================================================================\n");
         x_index = 0;
         s++;
         y_index++;
@@ -160,9 +184,11 @@ void count_rows_coluns(int *x, int *y,char *argv)
         *x = count_x_rows(s);
         i++;
         (*y)++;
+        // printf("%s\n",s);
         free(s);
         s = get_next_line(fd);
     }
+    // printf("\n============================================\n");
     free(s);
     close(fd);
     s = NULL;

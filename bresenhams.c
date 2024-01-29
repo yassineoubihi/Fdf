@@ -6,7 +6,7 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 22:12:00 by youbihi           #+#    #+#             */
-/*   Updated: 2024/01/24 15:06:31 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/01/29 23:33:05 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,12 +100,25 @@ void iso_maker(struct points **data,int x, int y)
         x_index = 0;
         y_index++;
     }
+    x_index = 0;
+    y_index = 0;
+    while (y_index < y)
+    {
+        while (x_index < x)
+        {
+            data[y_index][x_index].x += 1080 / 2;
+            data[y_index][x_index].y += 1080 / 2;
+            x_index++;
+        }
+        x_index = 0;
+        y_index++;
+    }
 }
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
 	char	*dst;
 
-    if ( 0 < x && x < 1920 &&0 < y && y < 1080)
+    if ( 0 < x && x < 1080 &&0 < y && y < 1080)
     {
 	    dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
 	    *(unsigned int*)dst = color;

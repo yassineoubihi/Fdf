@@ -2,7 +2,7 @@ SRCF = fdf.c get_next_line.c get_next_line_utils.c fdf_utiles.c bresenhams.c ft_
 RM = rm -f
 OBJF = $(SRCF:.c=.o)
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS = -g -fsanitize=address
 FDF = fdf
 LIBFT = libft/libft.a
 
