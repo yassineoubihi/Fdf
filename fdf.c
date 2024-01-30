@@ -6,7 +6,7 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 14:05:21 by youbihi           #+#    #+#             */
-/*   Updated: 2024/01/30 00:27:35 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/01/30 08:10:16 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 void    zed_high_helper(struct draw_param param,struct points **data,t_mlx *env)
 {
 
-    drawline(data[param.y][param.x].x,data[param.y][param.x].y,data[param.y ][param.x + 1].x,data[param.y][param.x + 1].y,0xffffff,env);
-    drawline(data[param.y][param.x].x,data[param.y][param.x].y,data[param.y + 1][param.x].x,data[param.y + 1][param.x].y,0xffffff,env);
+    drawline(data[param.y][param.x].x,data[param.y][param.x].y,data[param.y ][param.x + 1].x,data[param.y][param.x + 1].y,16711680,env);
+    drawline(data[param.y][param.x].x,data[param.y][param.x].y,data[param.y + 1][param.x].x,data[param.y + 1][param.x].y,16711680,env);
 }
 void    zed_high_helper_second(struct draw_param param,struct points **data,t_mlx *env)
 {
@@ -24,19 +24,19 @@ void    zed_high_helper_second(struct draw_param param,struct points **data,t_ml
     {
         if (param.x > 0)
             drawline(data[param.y][param.x].x,data[param.y][param.x].y
-                ,data[param.y][param.x + 1].x,data[param.y][param.x + 1].y,0xffffff,env);
+                ,data[param.y][param.x + 1].x,data[param.y][param.x + 1].y,16711680,env);
         else
             drawline(data[param.y][param.x].x,data[param.y][param.x].y
-                ,data[param.y][param.x + 1].x,data[param.y][param.x + 1].y,0xffffff,env);
+                ,data[param.y][param.x + 1].x,data[param.y][param.x + 1].y,16711680,env);
     }
     if (param.y < data[0][0].max_y - 1)
     {
         if (param.y > 0)
             drawline(data[param.y][param.x].x,data[param.y][param.x].y
-                ,data[param.y + 1][param.x].x,data[param.y + 1][param.x].y,0xffffff,env);
+                ,data[param.y + 1][param.x].x,data[param.y + 1][param.x].y,16711680,env);
         else
             drawline(data[param.y][param.x].x,data[param.y][param.x].y
-                ,data[param.y + 1][param.x].x,data[param.y + 1][param.x].y,0xffffff,env);
+                ,data[param.y + 1][param.x].x,data[param.y + 1][param.x].y,16711680,env);
     }
 }
 
@@ -58,18 +58,19 @@ void    zed_low(struct draw_param param,struct points **data,t_mlx *env)
     if ((param.x < data[0][0].max_x - 1) && (param.y < data[0][0].max_y - 1))
     {
         drawline(data[param.y][param.x].x,data[param.y][param.x].y
-            ,data[param.y ][param.x + 1].x,data[param.y][param.x + 1].y,0xffff00,env);
+            ,data[param.y ][param.x + 1].x,data[param.y][param.x + 1].y,16777215,env);
         drawline(data[param.y][param.x].x,data[param.y][param.x].y
-            ,data[param.y + 1][param.x].x,data[param.y + 1][param.x].y,0xffff00,env);
+            ,data[param.y + 1][param.x].x,data[param.y + 1][param.x].y,16777215,env);
     }
     else
     {
         if (param.x < data[0][0].max_x - 1)
             drawline(data[param.y][param.x].x,data[param.y][param.x].y
-                ,data[param.y][param.x + 1].x,data[param.y][param.x + 1].y,0xffff00,env);
+                ,data[param.y][param.x + 1].x,data[param.y][param.x + 1].y,16777215,env);
         if (param.y < data[0][0].max_y - 1)
             drawline(data[param.y][param.x].x,data[param.y][param.x].y
-                ,data[param.y + 1][param.x].x,data[param.y + 1][param.x].y,0xffff00,env);
+                ,data[param.y + 1][param.x].x,data[param.y + 1][param.x].y,16777215,env);
+        
     }
 }
 

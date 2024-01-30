@@ -6,7 +6,7 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 22:12:00 by youbihi           #+#    #+#             */
-/*   Updated: 2024/01/29 23:33:05 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/01/30 03:14:51 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,9 @@ void change_data(struct points **data,char *argv)
     y = 0;
     x_index = 0;
     y_index = 0;
-    count_rows_coluns(&x,&y,argv);
-    while (y_index < y)
+    while (y_index < data[0][0].max_y)
     {
-        while (x_index < x)
+        while (x_index < data[0][0].max_x)
         {
             rotate_x(&data[y_index][x_index].y,&data[y_index][x_index].z);
             rotate_y(&data[y_index][x_index].x,&data[y_index][x_index].z);
