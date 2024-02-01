@@ -6,7 +6,7 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 22:12:00 by youbihi           #+#    #+#             */
-/*   Updated: 2024/02/01 13:20:09 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/02/01 14:12:36 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,38 +124,23 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
     }
 }
 
-void drawline( int x0, int y0, int x1, int y1, int color, t_mlx *env)
+void drawline(int x0, int y0, int x1, int y1, int color, t_mlx *env)
 {
-    int dx = abs(x1 - x0);
-   int sx = x0 < x1 ? 1 : -1;
-   int dy = -abs(y1 - y0);
-   int sy = y0 < y1 ? 1 : -1;
-   int error = dx + dy;
+    struct drawline_points draw_data;
 
-   while (1) {
-       my_mlx_pixel_put(&env->img, x0, y0, color);
+    draw_data.dx = abs(x1 - x0);
+    draw_data.sx = x0 < x1 ? 1 : -1;
+    draw_data.dy = -abs(y1 - y0);
+    draw_data.sy = y0 < y1 ? 1 : -1;
+    draw_data.error = draw_data.dx + draw_data.dy;
 
-       if (x0 == x1 && y0 == y1) {
-           break;
-       }
+    while (my_mlx_pixel_put(&env->img, x0, y0, color), !(x0 == x1 && y0 == y1))
+    {
+        draw_data.e2 = 2 * draw_data.error;
 
-       int e2 = 2 * error;
-
-       if (e2 >= dy) {
-           if (x0 == x1) {
-               break;
-           }
-           error = error + dy;
-           x0 = x0 + sx;
-       }
-
-       if (e2 <= dx) {
-           if (y0 == y1) {
-               break;
-           }
-           error = error + dx;
-           y0 = y0 + sy;
-       }
-   }
-
+        if (draw_data.e2 >= draw_data.dy && (draw_data.error += draw_data.dy, 1))
+            x0 += draw_data.sx;
+        if (draw_data.e2 <= draw_data.dx && (draw_data.error += draw_data.dx, 1))
+            y0 += draw_data.sy;
+    }
 }

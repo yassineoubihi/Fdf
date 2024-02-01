@@ -6,7 +6,7 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/31 20:30:09 by youbihi           #+#    #+#             */
-/*   Updated: 2024/01/29 23:13:04 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/02/01 14:06:01 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,6 @@
 # include <stdio.h>
 # include <math.h>
 
-struct Args
-{
-    int     x0;
-    int     y0;
-    int     x1;
-    int     y1;
-};
-
 struct points
 {
     int x;
@@ -48,17 +40,6 @@ struct points
     int max_y;
 };
 
-struct algo
-{
-    int dx;
-    int pk;
-    int dy;
-    int x;
-    int y;
-    int y1;
-    int y0;
-};
-
 typedef struct	s_data {
 	void	*img;
 	char	*addr;
@@ -67,18 +48,6 @@ typedef struct	s_data {
 	int		endian;
 }				t_data;
 
-struct dda
-{
-    int dx;
-    int dy;
-    int steps;
-    float xIncrement;
-    float yIncrement;
-    float x;
-    float y;
-    int index;
-};
-
 typedef struct s_mlx
 {
   void *mlx;
@@ -86,12 +55,14 @@ typedef struct s_mlx
   t_data img;  
 }   t_mlx;
 
-struct pass_to_draw
+struct drawline_points
 {
-    int x0;
-    int y0;
-    int x1;
-    int y1;
+    int dx;
+    int sx;
+    int dy;
+    int sy;
+    int error;
+    int e2;
 };
 
 struct draw_param
