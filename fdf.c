@@ -6,7 +6,7 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 14:05:21 by youbihi           #+#    #+#             */
-/*   Updated: 2024/01/30 08:10:16 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/02/01 11:21:11 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 void    zed_high_helper(struct draw_param param,struct points **data,t_mlx *env)
 {
 
-    drawline(data[param.y][param.x].x,data[param.y][param.x].y,data[param.y ][param.x + 1].x,data[param.y][param.x + 1].y,16711680,env);
-    drawline(data[param.y][param.x].x,data[param.y][param.x].y,data[param.y + 1][param.x].x,data[param.y + 1][param.x].y,16711680,env);
+    drawline(data[param.y][param.x].x,data[param.y][param.x].y,data[param.y ][param.x + 1].x,data[param.y][param.x + 1].y,data[param.y][param.x].color,env);
+    drawline(data[param.y][param.x].x,data[param.y][param.x].y,data[param.y + 1][param.x].x,data[param.y + 1][param.x].y,data[param.y][param.x].color,env);
 }
 void    zed_high_helper_second(struct draw_param param,struct points **data,t_mlx *env)
 {
@@ -24,19 +24,19 @@ void    zed_high_helper_second(struct draw_param param,struct points **data,t_ml
     {
         if (param.x > 0)
             drawline(data[param.y][param.x].x,data[param.y][param.x].y
-                ,data[param.y][param.x + 1].x,data[param.y][param.x + 1].y,16711680,env);
+                ,data[param.y][param.x + 1].x,data[param.y][param.x + 1].y,data[param.y][param.x].color,env);
         else
             drawline(data[param.y][param.x].x,data[param.y][param.x].y
-                ,data[param.y][param.x + 1].x,data[param.y][param.x + 1].y,16711680,env);
+                ,data[param.y][param.x + 1].x,data[param.y][param.x + 1].y,data[param.y][param.x].color,env);
     }
     if (param.y < data[0][0].max_y - 1)
     {
         if (param.y > 0)
             drawline(data[param.y][param.x].x,data[param.y][param.x].y
-                ,data[param.y + 1][param.x].x,data[param.y + 1][param.x].y,16711680,env);
+                ,data[param.y + 1][param.x].x,data[param.y + 1][param.x].y,data[param.y][param.x].color,env);
         else
             drawline(data[param.y][param.x].x,data[param.y][param.x].y
-                ,data[param.y + 1][param.x].x,data[param.y + 1][param.x].y,16711680,env);
+                ,data[param.y + 1][param.x].x,data[param.y + 1][param.x].y,data[param.y][param.x].color,env);
     }
 }
 
@@ -79,6 +79,8 @@ void draw(struct points **data,char *argv,t_mlx *env)
     struct draw_param param;
     param.x = 0;
     param.y = 0;
+    int x = 0;
+    int fd = open("test_maps/test.fdf",O_RDWR);
     while (param.y < data[0][0].max_y)
     {
         while (param.x < data[0][0].max_x)
@@ -109,7 +111,7 @@ int main(int argc, char **argv)
         allocate_data(&data,argv[1]);
         fill_data(data, data[0][0].max_x, data[0][0].max_y,argv[1]);
         iso_maker(data,data[0][0].max_x,data[0][0].max_y);
-        // change_data(data,argv[1]);
+        change_data(data,argv[1]);
         env->mlx = mlx_init();
         env->win = mlx_new_window(env->mlx,1080,1080,"fdf");
         env->img.img = mlx_new_image(&env->mlx, 1080, 1080);

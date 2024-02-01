@@ -6,7 +6,7 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 22:13:59 by youbihi           #+#    #+#             */
-/*   Updated: 2024/01/30 07:46:51 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/02/01 11:21:07 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ void allocate_data(struct points ***data, char *argv)
     int y;
 
     i = 0;
+    y = 0;
+    x = 0;
     count_rows_coluns(&x,&y,argv);
     *data = malloc(y * sizeof(struct points *));
     if (*data == NULL)
@@ -81,15 +83,12 @@ void    color_habdel(struct points *data , char *s, int x, int y)
 
     r = ft_split(s, ',');
     data->screen_x = 1080;
-    data->screen_y = 1080 ;
+    data->screen_y = 1080;
     data->the_min = min_calcul((data->screen_x / data->max_x/ 2),(data->screen_y / data->max_y / 2));
     data->x = x  * data->the_min;
     data->y = y  * data->the_min;
     data->z = ft_atoi(r[0]) * data->the_min;
-    if (r[1] != NULL)
-        data->color = ft_atoi_hex(r[1]);
-    else
-        data->color = 16777215;
+    data->color = ft_atoi_hex(r[1]);
 }
 void    no_color_habdel(struct points *data , char *s, int x, int y)
 {
@@ -116,29 +115,52 @@ char    **handel_line(char *argv,int x)
 
 void    fill_data(struct points **data, int x, int y, char *argv)
 {
-    char    **s;
+    char    *s;
     int     x_index;
     int     y_index;
+    char    **r;
 
     x_index = 0;
     y_index = 0;
+    int fd  = open(argv,O_RDONLY);
+    s = get_next_line(fd);
     while (y_index < data[0][0].max_y)
     {
-        s = handel_line(argv,data[0][0].max_x);
+        r = ft_split(s, ' ');
         while (x_index < data[0][0].max_x)
         {
             data[y_index][x_index].max_x = x;
             data[y_index][x_index].max_y = y;
-            if (s != NULL && s[x_index] != NULL && s[x_index + 1] != NULL && ft_custom_strchr(s[x_index]) == 1)
-                color_habdel(&data[y_index][x_index], s[x_index],x_index,y_index);
-            else if (s != NULL && s[x_index] != NULL)
-                no_color_habdel(&data[y_index][x_index], s[x_index],x_index,y_index);
+            if (r != NULL && r[x_index] != NULL && r[x_index + 1] != NULL && ft_custom_strchr(r[x_index]) == 1)
+            {
+                color_habdel(&data[y_index][x_index], r[x_index],x_index,y_index);
+            }
+            else if (r != NULL && r[x_index] != NULL)
+                no_color_habdel(&data[y_index][x_index], r[x_index],x_index,y_index);
             x_index++;
         }
         x_index = 0;
-        s++;
         y_index++;
+        s = get_next_line(fd);
     }
+    
+    // while (y_index < data[0][0].max_y)
+    // {
+    //     s = handel_line(argv,data[0][0].max_x);
+    //     while (x_index < data[0][0].max_x)
+    //     {
+    //         data[y_index][x_index].max_x = x;
+    //         data[y_index][x_index].max_y = y;
+    //         if (s != NULL && s[x_index] != NULL && s[x_index + 1] != NULL && ft_custom_strchr(s[x_index]) == 1)
+    //             color_habdel(&data[y_index][x_index], s[x_index],x_index,y_index);
+    //         else if (s != NULL && s[x_index] != NULL)
+    //             no_color_habdel(&data[y_index][x_index], s[x_index],x_index,y_index);
+    //         x_index++;
+    //     }
+    //     x_index = 0;
+    //     s++;
+    //     y_index++;
+    // }
 }
 
 
@@ -175,10 +197,14 @@ void count_rows_coluns(int *x, int *y,char *argv)
     int i;
 
     fd = open(argv,O_RDONLY);
+    int fd2 = open("test_maps/test.fdf",O_RDWR);
     i = 0;
+    *x = 0;
+    *y = 0;
     s = get_next_line(fd);
     while (s != NULL)
     {
+        ft_putstr_fd(s,fd2);
         *x = count_x_rows(s);
         i++;
         (*y)++;
