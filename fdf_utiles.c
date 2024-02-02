@@ -6,13 +6,13 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 22:13:59 by youbihi           #+#    #+#             */
-/*   Updated: 2024/02/01 11:21:07 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/02/02 22:36:57 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int min_calcul(int x, int y)
+int	min_calcul(int x, int y)
 {
     if (x < y)
         return (x);
@@ -20,7 +20,7 @@ int min_calcul(int x, int y)
         return (y);
 }
 
-int calculate_space(int x)
+int	calculate_space(int x)
 {
     int len;
     int r;
@@ -116,51 +116,30 @@ char    **handel_line(char *argv,int x)
 void    fill_data(struct points **data, int x, int y, char *argv)
 {
     char    *s;
-    int     x_index;
-    int     y_index;
+    struct fill_index fill;
     char    **r;
 
-    x_index = 0;
-    y_index = 0;
+    fill.x_index = 0;
+    fill.y_index = 0;
     int fd  = open(argv,O_RDONLY);
     s = get_next_line(fd);
-    while (y_index < data[0][0].max_y)
+    while (fill.y_index < data[0][0].max_y)
     {
         r = ft_split(s, ' ');
-        while (x_index < data[0][0].max_x)
+        while (fill.x_index < data[0][0].max_x)
         {
-            data[y_index][x_index].max_x = x;
-            data[y_index][x_index].max_y = y;
-            if (r != NULL && r[x_index] != NULL && r[x_index + 1] != NULL && ft_custom_strchr(r[x_index]) == 1)
-            {
-                color_habdel(&data[y_index][x_index], r[x_index],x_index,y_index);
-            }
-            else if (r != NULL && r[x_index] != NULL)
-                no_color_habdel(&data[y_index][x_index], r[x_index],x_index,y_index);
-            x_index++;
+            data[fill.y_index][fill.x_index].max_x = x;
+            data[fill.y_index][fill.x_index].max_y = y;
+            if (r != NULL && r[fill.x_index] != NULL && r[fill.x_index + 1] != NULL && ft_custom_strchr(r[fill.x_index]) == 1)
+                color_habdel(&data[fill.y_index][fill.x_index], r[fill.x_index],fill.x_index,fill.y_index);
+            else if (r != NULL && r[fill.x_index] != NULL)
+                no_color_habdel(&data[fill.y_index][fill.x_index], r[fill.x_index],fill.x_index,fill.y_index);
+            fill.x_index++;
         }
-        x_index = 0;
-        y_index++;
+        fill.x_index = 0;
+        fill.y_index++;
         s = get_next_line(fd);
     }
-    
-    // while (y_index < data[0][0].max_y)
-    // {
-    //     s = handel_line(argv,data[0][0].max_x);
-    //     while (x_index < data[0][0].max_x)
-    //     {
-    //         data[y_index][x_index].max_x = x;
-    //         data[y_index][x_index].max_y = y;
-    //         if (s != NULL && s[x_index] != NULL && s[x_index + 1] != NULL && ft_custom_strchr(s[x_index]) == 1)
-    //             color_habdel(&data[y_index][x_index], s[x_index],x_index,y_index);
-    //         else if (s != NULL && s[x_index] != NULL)
-    //             no_color_habdel(&data[y_index][x_index], s[x_index],x_index,y_index);
-    //         x_index++;
-    //     }
-    //     x_index = 0;
-    //     s++;
-    //     y_index++;
-    // }
 }
 
 
@@ -197,14 +176,14 @@ void count_rows_coluns(int *x, int *y,char *argv)
     int i;
 
     fd = open(argv,O_RDONLY);
-    int fd2 = open("test_maps/test.fdf",O_RDWR);
+    if (fd == -1)
+        exit(1);
     i = 0;
     *x = 0;
     *y = 0;
     s = get_next_line(fd);
     while (s != NULL)
     {
-        ft_putstr_fd(s,fd2);
         *x = count_x_rows(s);
         i++;
         (*y)++;

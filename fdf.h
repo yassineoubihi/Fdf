@@ -6,7 +6,7 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/31 20:30:09 by youbihi           #+#    #+#             */
-/*   Updated: 2024/02/01 14:06:01 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/02/01 20:48:23 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,11 @@ struct draw_param
     int y_wall;
 };
 
+struct fill_index
+{
+    int x_index;
+    int y_index;
+};
 
 int		ft_line_len(char *str);
 char	*ft_line_insert(char *return_line, char *all_line);
