@@ -6,7 +6,7 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 22:13:59 by youbihi           #+#    #+#             */
-/*   Updated: 2024/02/03 01:13:47 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/02/03 03:58:12 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,30 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 					/ 8));
 		*(unsigned int *)dst = color;
 	}
+}
+
+void	map_check(char *map)
+{
+	int		fd;
+	char	*s;
+	int		error;
+	int		i;
+
+	i = 0;
+	error = 0;
+	fd = open(map, O_RDONLY);
+	if (fd == -1)
+		exit(1);
+	s = get_next_line(fd);
+	if (!s || s[0] == '\n')
+		exit(1);
+	while (s)
+	{
+		if (s[0] == '\n')
+			error++;
+		if (error >= 1)
+			exit(1);
+		s = get_next_line(fd);
+	}
+	close(fd);
 }

@@ -1,4 +1,4 @@
-SRCF = main.c fdf.c get_next_line.c get_next_line_utils.c fdf_utiles.c bresenhams.c ft_atoi_hex.c ft_atoi_hex_utils.c bresenhams_utiles.c fill_data.c fdf_utiles_helper.c
+SRCF = main.c fdf.c get_next_line/get_next_line.c get_next_line/get_next_line_utils.c fdf_utiles.c bresenhams.c ft_atoi_hex.c ft_atoi_hex_utils.c bresenhams_utiles.c fill_data.c fdf_utiles_helper.c
 RM = rm -f
 OBJF = $(SRCF:.c=.o)
 CC = cc

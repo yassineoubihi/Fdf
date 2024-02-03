@@ -6,11 +6,11 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 12:27:03 by youbihi           #+#    #+#             */
-/*   Updated: 2024/01/09 05:30:04 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/02/03 01:32:00 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "../fdf.h"
 
 size_t	ft_strlen_g(char *s)
 {

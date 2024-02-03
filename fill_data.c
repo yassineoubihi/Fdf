@@ -6,7 +6,7 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 00:49:54 by youbihi           #+#    #+#             */
-/*   Updated: 2024/02/03 01:02:53 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/02/03 02:52:51 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	fill_data(struct s_points **data, int x, int y, char *argv)
 	fill.x_index = 0;
 	fill.y_index = 0;
 	data_fill.x = x;
-	data_fill.x = y;
+	data_fill.y = y;
 	data_fill.fd = open(argv, O_RDONLY);
 	data_fill.s = get_next_line(data_fill.fd);
 	while (fill.y_index < data[0][0].max_y)
