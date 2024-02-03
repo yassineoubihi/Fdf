@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
-#include <stdio.h>
 #include "libft.h"
+#include <stdio.h>
+#include <string.h>
 
 char	*ft_strchr(const char *s, int c)
 {
@@ -23,7 +23,7 @@ char	*ft_strchr(const char *s, int c)
 	j = ft_strlen(s);
 	while (i <= j)
 	{
-		if ((unsigned char)s[i] == (unsigned char )c)
+		if ((unsigned char)s[i] == (unsigned char)c)
 		{
 			return ((char *)s + i);
 		}

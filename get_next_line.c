@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
 #include "fdf.h"
+#include <unistd.h>
 
 char	*ft_line_insert(char *return_line, char *all_line)
 {
@@ -41,7 +41,7 @@ char	*ft_strchr_g(char *s, int c)
 		return ((char *)&s[ft_strlen(s)]);
 	while (s[i] != '\0')
 	{
-		if (s[i] == (char) c)
+		if (s[i] == (char)c)
 			return ((char *)&s[i]);
 		i++;
 	}
@@ -96,7 +96,7 @@ char	*ft_read_lines(int fd, char *all_lines)
 		buff[num_of_read] = '\0';
 		all_lines = ft_strjoin_g(all_lines, buff);
 	}
-	free (buff);
+	free(buff);
 	return (all_lines);
 }
 

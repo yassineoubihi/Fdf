@@ -10,10 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
+#include "libft.h"
 #include <stdio.h>
-#include "libft.h"
-#include "libft.h"
+#include <string.h>
 
 int	ft_tolower(int c)
 {

@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
 #include "libft.h"
+#include <string.h>
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
@@ -28,8 +28,8 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	new = (char *)malloc(b + i + 1);
 	if (new == NULL)
 		return (NULL);
-	ft_memcpy(new, (char *) s1, i);
-	ft_memcpy(new + i, (char *) s2, b);
+	ft_memcpy(new, (char *)s1, i);
+	ft_memcpy(new + i, (char *)s2, b);
 	new[i + b] = '\0';
 	return (new);
 }

@@ -6,47 +6,37 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 13:58:31 by youbihi           #+#    #+#             */
-/*   Updated: 2024/01/31 03:06:34 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/02/02 23:43:09 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+#include <math.h>
 #include <stdio.h>
 #include <string.h>
-#include <math.h>
 
-int ft_atoi_hex(const char *hexaString)
+int	ft_atoi_hex(const char *hexaString)
 {
-    int length = strlen(hexaString);
+	struct s_atoi	var;
 
-    int startIndex = 0;
-    if (length > 1 && hexaString[0] == '0' && (hexaString[1] == 'x' || hexaString[1] == 'X')) {
-        startIndex = 2;
-    }
-
-    int decimalNumber = 0;
-
-    for (int i = startIndex; i < length; ++i) {
-        char currentChar = hexaString[i];
-        int digitValue;
-
-        if (currentChar >= '0' && currentChar <= '9') {
-            digitValue = currentChar - '0';
-        } else if (currentChar >= 'A' && currentChar <= 'F') {
-            digitValue = currentChar - 'A' + 10;
-        }
-        else if (currentChar >= 'a' && currentChar <= 'f')
-        {
-            digitValue = currentChar - 'a' + 10;
-        }
-        else
-        {
-            printf("Invalid character in the hexadecimal string: %c\n", currentChar);
-            return 0;
-        }
-
-        decimalNumber += digitValue * pow(16, length - i - 1);
-    }
-
-    return decimalNumber;
+	var.i = 0;
+	var.length = ft_strlen(hexaString);
+	var.startindex = 0;
+	if (var.length > 1 && hexaString[0] == '0' && (hexaString[1] == 'x'
+			|| hexaString[1] == 'X'))
+		var.startindex = 2;
+	var.decimalnumber = 0;
+	while (var.i < var.length)
+	{
+		var.currentchar = hexaString[var.i];
+		if (var.currentchar >= '0' && var.currentchar <= '9')
+			var.digitvalue = var.currentchar - '0';
+		else if (var.currentchar >= 'A' && var.currentchar <= 'F')
+			var.digitvalue = var.currentchar - 'A' + 10;
+		else if (var.currentchar >= 'a' && var.currentchar <= 'f')
+			var.digitvalue = var.currentchar - 'a' + 10;
+		var.decimalnumber += var.digitvalue * pow(16, var.length - var.i - 1);
+		var.i++;
+	}
+	return (var.decimalnumber);
 }

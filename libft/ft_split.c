@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
-#include <stdio.h>
 #include "libft.h"
+#include <stdio.h>
+#include <string.h>
 
 static char	**free_mem(char **tab)
 {
@@ -49,10 +49,10 @@ static size_t	ft_countword(char const *s, char c)
 
 static char	*words_len(const char *s, char c, size_t *w)
 {
-	char		*word;
-	size_t		len;
-	size_t		i;
-	size_t		j;
+	char	*word;
+	size_t	len;
+	size_t	i;
+	size_t	j;
 
 	len = 0;
 	j = 0;

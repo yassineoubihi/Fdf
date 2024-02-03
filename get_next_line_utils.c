@@ -51,7 +51,7 @@ int	count_len_for_left(char *str)
 		i++;
 	while (str[i + index])
 		index++;
-	return (index); 
+	return (index);
 }
 
 char	*ft_left_lines(char *all_lines)
@@ -93,7 +93,8 @@ char	*ft_strjoin_g(char *left_str, char *buff)
 	}
 	if (!left_str || !buff)
 		return (NULL);
-	str = malloc(sizeof(char) * ((ft_strlen_g(left_str) + ft_strlen_g(buff)) + 1));
+	str = malloc(sizeof(char) * ((ft_strlen_g(left_str) + ft_strlen_g(buff))
+				+ 1));
 	if (str == NULL)
 		return (NULL);
 	i = -1;

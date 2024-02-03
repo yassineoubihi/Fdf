@@ -41,11 +41,11 @@ static long int	ft_len(int n)
 
 char	*ft_itoa(int n)
 {
-	char				*str;
-	long int			len;
-	unsigned int		nb;
-	int					sign;
-	long				number;
+	char			*str;
+	long int		len;
+	unsigned int	nb;
+	int				sign;
+	long			number;
 
 	number = n;
 	sign = 1;
