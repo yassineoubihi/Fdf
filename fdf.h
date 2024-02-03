@@ -6,7 +6,7 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/31 20:30:09 by youbihi           #+#    #+#             */
-/*   Updated: 2024/02/03 03:59:00 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/02/03 23:51:56 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,12 @@ struct		s_data_fill
 	char				*s;
 	int					x;
 	int					y;
+};
+
+struct	s_combined
+{
+	struct s_points	**data;
+	t_mlx			*env;
 };
 
 int			ft_line_len(char *str);

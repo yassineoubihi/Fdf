@@ -6,26 +6,72 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 22:56:51 by youbihi           #+#    #+#             */
-/*   Updated: 2024/02/03 03:48:00 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/02/04 00:00:34 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
+void	free_mem(struct s_points **data)
+{
+	int	i;
+	int	y;
+
+	y = data[0][0].max_y;
+	while (i < y)
+	{
+		free(data[i]);
+		i++;
+	}
+	free(data);
+}
+
+void	data_manipulation(struct s_points **data, char *argv)
+{
+	fill_data(data, data[0][0].max_x, data[0][0].max_y, argv);
+	iso_maker(data, data[0][0].max_x, data[0][0].max_y);
+	change_data(data, argv);
+}
+
+int	close_window(int keycode, struct s_combined *all_data)
+{
+	if (keycode == 53)
+	{
+		mlx_destroy_window(all_data->env->mlx, all_data->env->win);
+		free_mem(all_data->data);
+		exit(0);
+	}
+	return (0);
+}
+
+int	ft_x(struct s_combined *all_data)
+{
+	mlx_destroy_window(all_data->env->mlx, all_data->env->win);
+	free_mem(all_data->data);
+	exit(0);
+	return (0);
+}
+
+void	lol(void)
+{
+	system("leaks fdf");
+}
+
 int	main(int argc, char **argv)
 {
-	struct s_points	**data;
-	t_mlx			*env;
-
+	struct s_points		**data;
+	t_mlx				*env;
+	struct s_combined	all_data;
+	atexit(lol);
 	if (argc == 2)
 	{
 		map_check(argv[1]);
 		data = NULL;
 		env = malloc(sizeof(t_mlx));
 		allocate_data(&data, argv[1]);
-		fill_data(data, data[0][0].max_x, data[0][0].max_y, argv[1]);
-		iso_maker(data, data[0][0].max_x, data[0][0].max_y);
-		change_data(data, argv[1]);
+		data_manipulation(data, argv[1]);
+		all_data.data = data;
+		all_data.env = env;
 		env->mlx = mlx_init();
 		env->win = mlx_new_window(env->mlx, 1080, 1080, "fdf");
 		env->img.img = mlx_new_image(&env->mlx, 1080, 1080);
@@ -34,6 +80,8 @@ int	main(int argc, char **argv)
 				&env->img.endian);
 		draw(data, argv[1], env);
 		mlx_put_image_to_window(env->mlx, env->win, env->img.img, 0, 0);
+		mlx_hook(env->win, 2, 0, close_window, &all_data);
+		mlx_hook(env->win, 17, 0, ft_x, &all_data);
 		mlx_loop(env->mlx);
 		return (0);
 	}
