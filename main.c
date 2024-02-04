@@ -6,24 +6,26 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 22:56:51 by youbihi           #+#    #+#             */
-/*   Updated: 2024/02/04 00:00:34 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/02/04 15:07:34 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	free_mem(struct s_points **data)
+void	free_mem(struct s_points ***data)
 {
 	int	i;
 	int	y;
 
-	y = data[0][0].max_y;
+	i = 0;
+	y = data[0][0]->max_y;
 	while (i < y)
 	{
-		free(data[i]);
+		free((*data)[i]);
 		i++;
 	}
-	free(data);
+	free(*data);
+	*data = NULL;
 }
 
 void	data_manipulation(struct s_points **data, char *argv)
@@ -39,6 +41,10 @@ int	close_window(int keycode, struct s_combined *all_data)
 	{
 		mlx_destroy_window(all_data->env->mlx, all_data->env->win);
 		free_mem(all_data->data);
+		if (all_data->env != NULL)
+			if (all_data->env->img.img != NULL)
+				mlx_destroy_image(all_data->env->mlx, all_data->env->img.img);
+		free(all_data->env);
 		exit(0);
 	}
 	return (0);
@@ -48,13 +54,12 @@ int	ft_x(struct s_combined *all_data)
 {
 	mlx_destroy_window(all_data->env->mlx, all_data->env->win);
 	free_mem(all_data->data);
+	if (all_data->env != NULL)
+		if (all_data->env->img.img != NULL)
+			mlx_destroy_image(all_data->env->mlx, all_data->env->img.img);
+	free(all_data->env);
 	exit(0);
 	return (0);
-}
-
-void	lol(void)
-{
-	system("leaks fdf");
 }
 
 int	main(int argc, char **argv)
@@ -62,15 +67,14 @@ int	main(int argc, char **argv)
 	struct s_points		**data;
 	t_mlx				*env;
 	struct s_combined	all_data;
-	atexit(lol);
+
 	if (argc == 2)
 	{
 		map_check(argv[1]);
-		data = NULL;
 		env = malloc(sizeof(t_mlx));
 		allocate_data(&data, argv[1]);
 		data_manipulation(data, argv[1]);
-		all_data.data = data;
+		all_data.data = &data;
 		all_data.env = env;
 		env->mlx = mlx_init();
 		env->win = mlx_new_window(env->mlx, 1080, 1080, "fdf");

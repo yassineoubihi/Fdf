@@ -6,22 +6,24 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 22:13:59 by youbihi           #+#    #+#             */
-/*   Updated: 2024/02/03 03:58:12 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/02/04 14:46:19 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-char	**handel_line(char *argv, int x)
+char	**free_mem_splite(char **tab)
 {
-	int		fd;
-	char	**r;
-	char	*s;
+	unsigned int	i;
 
-	fd = open(argv, O_RDONLY);
-	s = get_next_line(fd);
-	r = ft_split(s, ' ');
-	return (r);
+	i = 0;
+	if (tab)
+	{
+		while (tab[i])
+			free(tab[i++]);
+		free(tab);
+	}
+	return (NULL);
 }
 
 int	count_x_rows(char *s)
@@ -38,6 +40,7 @@ int	count_x_rows(char *s)
 		x++;
 		i++;
 	}
+	result = free_mem_splite(result);
 	return (x);
 }
 
@@ -88,19 +91,20 @@ void	map_check(char *map)
 
 	i = 0;
 	error = 0;
+	check_name(map);
 	fd = open(map, O_RDONLY);
 	if (fd == -1)
 		exit(1);
 	s = get_next_line(fd);
 	if (!s || s[0] == '\n')
 		exit(1);
-	while (s)
+	while (s && error < 1)
 	{
 		if (s[0] == '\n')
 			error++;
-		if (error >= 1)
-			exit(1);
+		free(s);
 		s = get_next_line(fd);
 	}
+	free(s);
 	close(fd);
 }

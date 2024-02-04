@@ -6,7 +6,7 @@
 #    By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/09 14:34:55 by youbihi           #+#    #+#              #
-#    Updated: 2023/11/23 10:22:37 by youbihi          ###   ########.fr        #
+#    Updated: 2024/02/04 11:04:29 by youbihi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,16 +40,16 @@ bonus:$(OBJBF)
 
 
 $(NAME):$(OBJF)
-	@ar -rc $(NAME) $(OBJF)
+	ar -rc $(NAME) $(OBJF)
 
 clean:
-	@$(RM) $(OBJF) $(OBJBF)
+	$(RM) $(OBJF) $(OBJBF)
 
 %.o:%.c libft.h
-	@$(CC) $(GFLAGS) -c $< -o $@
+	$(CC) $(GFLAGS) -c $< -o $@
 
 fclean: clean
-	@$(RM) $(NAME)
+	$(RM) $(NAME)
 
 re: fclean all
 

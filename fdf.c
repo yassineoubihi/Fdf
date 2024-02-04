@@ -6,7 +6,7 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 14:05:21 by youbihi           #+#    #+#             */
-/*   Updated: 2024/02/03 02:54:13 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/02/04 14:21:51 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@ void	zed_high_helper_second(struct s_draw_param param,
 
 	var.x = data[param.y][param.x].x;
 	var.y = data[param.y][param.x].y;
-	var.x1 = data[param.y][param.x + 1].x;
-	var.y1 = data[param.y][param.x + 1].y;
 	if (param.x < data[0][0].max_x - 1)
 	{
+		var.x1 = data[param.y][param.x + 1].x;
+		var.y1 = data[param.y][param.x + 1].y;
 		if (param.x > 0)
 			drawline(var, data[param.y][param.x].color, env);
 		else
@@ -57,13 +57,9 @@ void	zed_high_helper_second(struct s_draw_param param,
 void	zed_high(struct s_draw_param param, struct s_points **data, t_mlx *env)
 {
 	if ((param.x < data[0][0].max_x - 1) && (param.y < data[0][0].max_y - 1))
-	{
 		zed_high_helper(param, data, env);
-	}
 	else
-	{
 		zed_high_helper_second(param, data, env);
-	}
 }
 
 void	zed_low(struct s_draw_param param, struct s_points **data, t_mlx *env)

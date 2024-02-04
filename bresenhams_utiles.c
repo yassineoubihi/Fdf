@@ -6,7 +6,7 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 22:48:07 by youbihi           #+#    #+#             */
-/*   Updated: 2024/02/03 01:05:18 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/02/04 15:04:45 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,23 @@ void	change_data(struct s_points **data, char *argv)
 		}
 		x_index = 0;
 		y_index++;
+	}
+}
+
+void	check_name(char *map)
+{
+	int		i;
+	int		len;
+	char	*s;
+
+	i = 3;
+	s = ".fdf";
+	len = ft_strlen(map) - 1;
+	while (i >= 0)
+	{
+		if (map[len] != s[i])
+			exit(1);
+		len--;
+		i--;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/31 20:30:09 by youbihi           #+#    #+#             */
-/*   Updated: 2024/02/03 23:51:56 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/02/04 14:50:43 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ struct		s_data_fill
 
 struct	s_combined
 {
-	struct s_points	**data;
+	struct s_points	***data;
 	t_mlx			*env;
 };
 
@@ -151,5 +151,7 @@ int			min_calcul(int x, int y);
 void		swap(int *a, int *b);
 void		my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void		map_check(char *map);
+char		**free_mem_splite(char **tab);
+void		check_name(char *map);
 
 #endif
