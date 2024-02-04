@@ -6,7 +6,7 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 22:13:59 by youbihi           #+#    #+#             */
-/*   Updated: 2024/02/04 14:46:19 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/02/04 15:40:10 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,27 +84,28 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 
 void	map_check(char *map)
 {
-	int		fd;
-	char	*s;
-	int		error;
-	int		i;
+	struct s_map_check	vars;
 
-	i = 0;
-	error = 0;
+	vars.error = 0;
 	check_name(map);
-	fd = open(map, O_RDONLY);
-	if (fd == -1)
+	vars.fd = open(map, O_RDONLY);
+	if (vars.fd == -1)
 		exit(1);
-	s = get_next_line(fd);
-	if (!s || s[0] == '\n')
+	vars.s = get_next_line(vars.fd);
+	if (!vars.s || vars.s[0] == '\n')
 		exit(1);
-	while (s && error < 1)
+	while (vars.s && vars.error < 1)
 	{
-		if (s[0] == '\n')
-			error++;
-		free(s);
-		s = get_next_line(fd);
+		if (vars.s[0] == '\n')
+			vars.error++;
+		if (vars.error >= 1)
+		{
+			free(vars.s);
+			exit(1);
+		}
+		free(vars.s);
+		vars.s = get_next_line(vars.fd);
 	}
-	free(s);
-	close(fd);
+	free(vars.s);
+	close(vars.fd);
 }
