@@ -6,6 +6,7 @@
 <h4>Why i choose "Bresenham's line drawing algorithm" ??</h4>
 <p>The simple answer is that it has lots of resources to learn it</p>
 <h4>Roadmap to learn this algo :</h4>
+<h3><a href="https://medium.com/@youbihi129/42-the-network-fdf-fil-de-fer-project-roadmap-464be06d6f15">Link for full roadmap </a></h3>
 <p>
   <p>
   1 .Basic Geometry
