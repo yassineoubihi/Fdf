@@ -6,7 +6,7 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 14:05:21 by youbihi           #+#    #+#             */
-/*   Updated: 2024/02/04 14:21:51 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/02/06 09:07:24 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	zed_low(struct s_draw_param param, struct s_points **data, t_mlx *env)
 	}
 }
 
-void	draw(struct s_points **data, char *argv, t_mlx *env)
+void	draw(struct s_points **data, t_mlx *env)
 {
 	struct s_draw_param	param;
 	int					x;

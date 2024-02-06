@@ -6,13 +6,12 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 18:01:17 by youbihi           #+#    #+#             */
-/*   Updated: 2024/02/04 12:56:50 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/02/05 18:16:04 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <stdio.h>
 #include <string.h>
+#include "fdf.h"
 
 static char	**free_mem(char **tab)
 {
@@ -49,10 +48,10 @@ static size_t	ft_countword(char const *s, char c)
 
 static char	*words_len(const char *s, char c, size_t *w)
 {
-	char	*word;
-	size_t	len;
-	size_t	i;
-	size_t	j;
+	char		*word;
+	size_t		len;
+	size_t		i;
+	size_t		j;
 
 	len = 0;
 	j = 0;

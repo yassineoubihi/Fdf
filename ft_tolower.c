@@ -1,27 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstsize_bonus.c                                 :+:      :+:    :+:   */
+/*   ft_tolower.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/09 14:32:49 by youbihi           #+#    #+#             */
-/*   Updated: 2023/11/09 20:54:48 by youbihi          ###   ########.fr       */
+/*   Created: 2023/10/31 19:35:30 by youbihi           #+#    #+#             */
+/*   Updated: 2024/02/05 18:19:12 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <stdio.h>
+#include <string.h>
+#include "fdf.h"
 
-int	ft_lstsize(t_list *lst)
+int	ft_tolower(int c)
 {
-	int	i;
-
-	i = 0;
-	while (lst != NULL)
+	if (c >= 'A' && c <= 'Z')
 	{
-		i++;
-		lst = lst->next;
+		c = c + 32;
+		return (c);
 	}
-	return (i);
+	return (c);
 }

@@ -6,20 +6,19 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 17:13:17 by youbihi           #+#    #+#             */
-/*   Updated: 2024/02/04 10:56:30 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/02/05 18:12:09 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <stdio.h>
+#include "fdf.h"
 #include <string.h>
 
-static int	func(char c)
+static int	func_atoi(char c)
 {
 	return (c == '\t' || c == '\n' || c == '\v' || c == '\r' || c == '\f');
 }
 
-static int	func0(const char *s, int i, int neg)
+static int	func_atoi_0(const char *s, int i, int neg)
 {
 	unsigned long long	res;
 	int					digitnbr;
@@ -55,7 +54,7 @@ int	ft_atoi(const char *s)
 
 	i = 0;
 	neg = 1;
-	while (s[i] && (s[i] == ' ' || func(s[i])))
+	while (s[i] && (s[i] == ' ' || func_atoi(s[i])))
 		i++;
 	if (s[i] == '+' || s[i] == '-')
 	{
@@ -65,5 +64,5 @@ int	ft_atoi(const char *s)
 	}
 	while (s[i] && s[i] == '0')
 		i++;
-	return (func0(s, i, neg));
+	return (func_atoi_0(s, i, neg));
 }

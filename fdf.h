@@ -6,7 +6,7 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/31 20:30:09 by youbihi           #+#    #+#             */
-/*   Updated: 2024/02/04 15:38:23 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/02/06 09:11:45 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,11 @@
 #  define BUFFER_SIZE 1000
 # endif
 
-# include "libft/libft.h"
 # include "mlx.h"
 # include <fcntl.h>
 # include <limits.h>
 # include <math.h>
-# include <stdio.h>
+# include <unistd.h>
 # include <stdlib.h>
 
 struct		s_points
@@ -145,13 +144,12 @@ void		fill_data(struct s_points **data, int c, int r, char *argv);
 int			func(char c);
 void		allocate_data(struct s_points ***data, char *argv);
 void		iso(int *x, int *y, int z);
-void		change_data(struct s_points **data, char *argv);
 void		iso_maker(struct s_points **data, int x, int y);
 void		rotate_x(int *y, int *z);
 void		rotate_y(int *x, int *z);
 void		rotate_z(int *x, int *y);
-void		change_data(struct s_points **data, char *argv);
-void		draw(struct s_points **data, char *argv, t_mlx *env);
+void		change_data(struct s_points **data);
+void		draw(struct s_points **data, t_mlx *env);
 int			ft_custom_strchr(char *s);
 int			ishexdigit(char c);
 int			min_calcul(int x, int y);
@@ -160,5 +158,10 @@ void		my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void		map_check(char *map);
 char		**free_mem_splite(char **tab);
 void		check_name(char *map);
+size_t		ft_strlen(const char *str);
+char		**ft_split(char const *s, char c);
+int			ft_tolower(int c);
+int			ft_isdigit(int c);
+int			ft_atoi(const char *s);
 
 #endif

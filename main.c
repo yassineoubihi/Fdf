@@ -6,7 +6,7 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 22:56:51 by youbihi           #+#    #+#             */
-/*   Updated: 2024/02/04 16:02:51 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/02/06 09:09:48 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	data_manipulation(struct s_points **data, char *argv)
 {
 	fill_data(data, data[0][0].max_x, data[0][0].max_y, argv);
 	iso_maker(data, data[0][0].max_x, data[0][0].max_y);
-	change_data(data, argv);
+	change_data(data);
 }
 
 int	close_window(int keycode, struct s_combined *all_data)
@@ -71,8 +71,8 @@ int	main(int argc, char **argv)
 	if (argc == 2)
 	{
 		map_check(argv[1]);
-		env = malloc(sizeof(t_mlx));
 		allocate_data(&data, argv[1]);
+		env = malloc(sizeof(t_mlx));
 		data_manipulation(data, argv[1]);
 		all_data.data = &data;
 		all_data.env = env;
@@ -82,7 +82,7 @@ int	main(int argc, char **argv)
 		env->img.addr = mlx_get_data_addr(env->img.img,
 				&env->img.bits_per_pixel, &env->img.line_length,
 				&env->img.endian);
-		draw(data, argv[1], env);
+		draw(data, env);
 		mlx_put_image_to_window(env->mlx, env->win, env->img.img, 0, 0);
 		mlx_hook(env->win, 2, 0, close_window, &all_data);
 		mlx_hook(env->win, 17, 0, ft_x, &all_data);

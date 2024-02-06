@@ -6,7 +6,7 @@
 /*   By: youbihi <youbihi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 22:48:07 by youbihi           #+#    #+#             */
-/*   Updated: 2024/02/04 15:04:45 by youbihi          ###   ########.fr       */
+/*   Updated: 2024/02/06 09:07:52 by youbihi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	rotate_z(int *x, int *y)
 	*y = previous_x * sin(0.1) + previous_y * cos(0.1);
 }
 
-void	change_data(struct s_points **data, char *argv)
+void	change_data(struct s_points **data)
 {
 	int	x;
 	int	y;
